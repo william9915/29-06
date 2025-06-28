@@ -82,6 +82,8 @@ const App = () => {
     try {
       await axios.delete(`${API}/search/history`);
       setSearchHistory([]);
+      // Force refresh of search history to ensure UI is updated
+      await loadSearchHistory();
     } catch (error) {
       console.error("Error clearing history:", error);
     }
