@@ -179,6 +179,13 @@ async def root():
 async def search_papers(search_query: SearchQuery):
     """Search for academic papers across multiple sources"""
     try:
+        # Validate query
+        if not search_query.query or not search_query.query.strip():
+            return SearchResult(
+                papers=[],
+                total_count=0,
+                query_info={"query": search_query.query, "error": "Query cannot be empty"}
+            )
         # Build search query
         query_parts = [search_query.query]
         if search_query.author:
